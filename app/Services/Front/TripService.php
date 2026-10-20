@@ -62,7 +62,7 @@ class TripService
     }
     public function search($request) : JsonResponse
     {
-//        try{
+        try{
             $lang = $request->header('lang','en');
             $query = Trip::query();
             $query->when('title', function ($q) use ($request,$lang) {
@@ -75,10 +75,10 @@ class TripService
             $trips = $query->with(['media'])
                 ->paginate(12);
             return $this->ApiSuccessResponse(TripCollection::make($trips),'trips retrieved successfully');
-//        }catch (\Exception $e)
-//        {
-//            Log::error('error for get search trip ' . $e->getMessage());
-//            return $this->ApiErrorResponse([],'something went wrong',500);
-//        }
+        }catch (\Exception $e)
+        {
+            Log::error('error for get search trip ' . $e->getMessage());
+            return $this->ApiErrorResponse([],'something went wrong',500);
+        }
     }
 }
