@@ -10,7 +10,14 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function __construct(protected OrderService $orderService){}
+    public function __construct(protected OrderService $orderService)
+    {
+    }
+
+    public function index(Request $request): JsonResponse
+    {
+        return $this->orderService->index($request);
+    }
     public function store(StoreRequest $request) : JsonResponse
     {
         return $this->orderService->store($request);
